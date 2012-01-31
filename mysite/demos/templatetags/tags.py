@@ -23,6 +23,7 @@ class CurrentTimeNode(template.Node):
 
 @register.tag(name='current_time2')
 def do_current_time2(parser, token):
+#    import pdb; pdb.set_trace()
     try:
         tag_name, format_string = token.split_contents()
     except ValueError:
@@ -36,11 +37,12 @@ class CurrentTimeNode2(template.Node):
 
     def render(self, context):
         now = datetime.datetime.now()
-        context['current_time'] = npow.strftime(self.format_string)
+        context['current_time'] = now.strftime(self.format_string)
         return ''
 
 @register.tag(name='current_time3')
 def do_current_time3(parser, token):
+#    import pdb; pdb.set_trace()
     try:
         tag_name, arg = token.contents.split(None, 1)
     except ValueError:
@@ -69,4 +71,25 @@ class CurrentTimeNode3(template.Node):
         context[self.var_name] = now.strftime(self.format_string)
         return ''
 
+class MyCommentNode(template.Node):
+    def render(self, context):
+        return ''
 
+@register.tag(name='my_comment')
+def do_my_comment(parser, token):
+    nodelist = parser.parse(('end_my_comment',))
+    parser.delete_first_token()
+    return MyCommentNode()
+
+@register.tag(name='my_upper')
+def do_upper(parser, token):
+    nodelist = parser.parse(('end_my_upper',))
+    parser.delete_first_token()
+    return UpperNode(nodelist)
+
+class UpperNode(template.Node):
+    def __init__(self, nodelist):
+        self.nodelist = nodelist
+    def render(self, context):
+        output = self.nodelist.render(context)
+        return output.upper()

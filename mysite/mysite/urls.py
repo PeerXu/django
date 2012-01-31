@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from mysite.views import hello, current_datetime, processors_demo
 from books.views import book_info
-from demos.views import view_tags, view_tags_current_time, view_tags_current_time2, view_tags_current_time3
+from demos.views import *
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -22,8 +22,11 @@ urlpatterns = patterns('',
     ('^current_datetime$', current_datetime),
     ('^processors_demo$', processors_demo),
     ('^book/info$', book_info),
-    ('^demo/tags/demo0$', view_tags),
+    ('^demo/test', view_demos_test_template),
+    ('^demo/tags/filter$', view_tags_filter),
     ('^demo/tags/current_time$', view_tags_current_time),
     ('^demo/tags/current_time2$', view_tags_current_time2),
     ('^demo/tags/current_time3$', view_tags_current_time3),
+    ('^demo/tags/my_comment$', view_tags_my_comment),
+    ('^demo/tags/my_upper$', view_tags_my_upper),
 )
