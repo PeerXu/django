@@ -3,6 +3,8 @@ from mysite.views import hello, current_datetime, processors_demo
 from books.views import book_info
 from demos.views import *
 
+from django.views.generic.base import TemplateView
+
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
@@ -29,4 +31,7 @@ urlpatterns = patterns('',
     ('^demo/tags/current_time3$', view_tags_current_time3),
     ('^demo/tags/my_comment$', view_tags_my_comment),
     ('^demo/tags/my_upper$', view_tags_my_upper),
+
+    (r'^about/$', TemplateView.as_view(template_name='about.html'))
+    
 )
